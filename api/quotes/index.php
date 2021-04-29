@@ -7,8 +7,8 @@ include_once '../../model/Database.php';
 include_once '../../model/Quotes.php';
 
 $limit =filter_input(INPUT_GET, 'limit',FILTER_VALIDATE_INT);
-$categoryid = filter_input(INPUT_GET, 'categoryid',FILTER_VALIDATE_INT);
-$authorid =filter_input(INPUT_GET, 'authorid',FILTER_VALIDATE_INT);
+$categoryId = filter_input(INPUT_GET, 'categoryId',FILTER_VALIDATE_INT);
+$authorId =filter_input(INPUT_GET, 'authorId',FILTER_VALIDATE_INT);
 
 
 $database = new Database();
@@ -17,10 +17,19 @@ $db = $database->connect();
 
 $quotes = new Quotes($db);
 if($limit){
-    $result = $quotes->read_by_limit($limit);
-}else if($authorid){
-    $result = $quotes->read_by_author($authorid);
-}else{
+    $quotes->limit = $limit;
+    $result = $quotes->read_by_limit();
+}else if($categoryId && $authorId){
+    $quotes->authorId = $authorId;
+    $quotes->categoryId = $categoryId;
+    $result = $quotes->read_both();
+}
+else if($authorId){
+    $result = $quotes->read_by_author($authorId);
+}else if($categoryId){
+    $result = $quotes->read_by_category($categoryId);
+}
+else{
     $result = $quotes->read();
 }
 // $result = $quotes->read();
@@ -38,9 +47,9 @@ if($num > 0){
             'id' => $id,
             'quote' => $quote,
             'author' => $author,
-            'category' => $category
-            // 'categoryid' => $categoryid,
-            // 'authorid' => $authorid
+            'category' => $category,
+            'categoryId' => $categoryId,
+            'authorId' => $authorId
         );
 
         array_push($quote_arr['data'], $quote_item);

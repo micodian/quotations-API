@@ -124,6 +124,35 @@ class Quotes {
            
             return $statement;
     }
+
+    public function create(){
+       
+        $query = ' INSERT INTO quotes
+                       
+                     SET
+                        quote = :quote,
+                        authorId= :authorId,
+                        categoryId = :categoryId
+                              
+                        
+                                                 ';
+            $statement = $this->conn->prepare($query);
+            $this->quote=htmlspecialchars(strip_tags($this->quote));
+            $this->authorId =htmlspecialchars(strip_tags($this->authorId));
+            $this->categoryId=htmlspecialchars(strip_tags($this->categoryId));
+
+            
+
+            $statement->bindValue(':quote', $this->quote);
+            $statement->bindValue(':authorId',$this->authorId );
+            $statement->bindValue(':categoryId',$this->categoryId);
+            //$statement->execute();
+            if($statement->execute()){
+                return true;
+            }
+            echo json_encode($statement->error);
+            return false;
+    }
 }
 
 

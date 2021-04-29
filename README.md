@@ -2,7 +2,7 @@
 
 ## All Requests provide a JSON data response
 
-Request:                               |                Response (fields):    
+GET Request:                               |                Response (fields):    
 -------------------------------------- | ----------------------------------       
 /api/quotes/                            | All quotes are returned (id,  quote, author, category)
 /api/quotes/read_single.php?id=4        | The specific quote

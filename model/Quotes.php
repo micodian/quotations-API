@@ -153,6 +153,35 @@ class Quotes {
             echo json_encode($statement->error);
             return false;
     }
+
+    public function update(){
+       
+        $query = ' UPDATE quotes
+                       
+                     SET
+                        quote = :quote,
+                        authorId= :authorId,
+                        categoryId = :categoryId
+                          WHERE id = :id    
+                        
+                                                 ';
+            $statement = $this->conn->prepare($query);
+            $this->quote=htmlspecialchars(strip_tags($this->quote));
+            $this->authorId =htmlspecialchars(strip_tags($this->authorId));
+            $this->categoryId=htmlspecialchars(strip_tags($this->categoryId));
+            $this->id=htmlspecialchars(strip_tags($this->id));
+            
+            $statement->bindValue(':id', $this->id);
+            $statement->bindValue(':quote', $this->quote);
+            $statement->bindValue(':authorId',$this->authorId );
+            $statement->bindValue(':categoryId',$this->categoryId);
+            //$statement->execute();
+            if($statement->execute()){
+                return true;
+            }
+            echo json_encode($statement->error);
+            return false;
+    }
 }
 
 

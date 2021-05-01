@@ -2,13 +2,13 @@
 
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
-header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Methods: PUT');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods,Authorization
 ,X-Requested-With');
 
 
 include_once '../../model/Database.php';
-include_once '../../model/Categories.php';
+include_once '../../model/Authors.php';
 
 
 
@@ -16,24 +16,28 @@ $database = new Database();
 $db = $database->connect();
 
 
-$categories = new Categories($db);
+$authors = new Authors($db);
 
 $data = json_decode(file_get_contents("php://input"));
+
+
 if(!$data){
     echo json_encode(
-        array('message' => 'no detils added to categories')
+        array('message' => 'no detils added to quotes')
     );
 }
-$categories->category = $data->category;
+
+$authors->id = $data->id;
+$authors->author = $data->author;
 
 
-if($categories->create()){
+if($authors->update()){
     echo json_encode(
-        array('message' => 'Category created')
+        array('message' => 'Author updated')
     );
 }else{
     echo json_encode(
-        array('message' => 'Category Not created')
+        array('message' => 'Author Not updated')
     );
 }
 

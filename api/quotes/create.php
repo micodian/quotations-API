@@ -21,7 +21,7 @@ $quotes = new Quotes($db);
 $data = json_decode(file_get_contents("php://input"));
 if(!$data){
     echo json_encode(
-        array('message' => 'no detils added to post')
+        array('message' => 'no detils added to quotes')
     );
 }
 $quotes->quote = $data->quote;

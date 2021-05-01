@@ -38,6 +38,59 @@ class Authors {
             // $statement->closeCursor();
             return $statement;
     }
+
+    public function create(){
+       
+        $query = ' INSERT INTO authors
+                       
+                     SET
+                        author = :author
+                        
+                              
+                        
+                                                 ';
+            $statement = $this->conn->prepare($query);
+            $this->author=htmlspecialchars(strip_tags($this->author));
+            
+
+            
+
+            $statement->bindValue(':author', $this->author);
+           
+            //$statement->execute();
+            if($statement->execute()){
+                return true;
+            }
+            echo json_encode($statement->error);
+            return false;
+    }
+
+    public function update(){
+       
+        $query = ' UPDATE authors
+                       
+                     SET
+                        author = :author
+                        WHERE id = :id
+                        
+                              
+                        
+                                                 ';
+            $statement = $this->conn->prepare($query);
+            $this->author=htmlspecialchars(strip_tags($this->author));
+            $this->id=htmlspecialchars(strip_tags($this->id));
+
+            
+
+            $statement->bindValue(':author', $this->author);
+            $statement->bindValue(':id', $this->id);
+            //$statement->execute();
+            if($statement->execute()){
+                return true;
+            }
+            echo json_encode($statement->error);
+            return false;
+    }
 }
 
 

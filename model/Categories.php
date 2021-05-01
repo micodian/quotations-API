@@ -38,6 +38,61 @@ class Categories {
             // $statement->closeCursor();
             return $statement;
     }
+
+    public function create(){
+       
+        $query = ' INSERT INTO categories
+                       
+                     SET
+                        category = :category
+                        
+                              
+                        
+                                                 ';
+            $statement = $this->conn->prepare($query);
+            $this->category=htmlspecialchars(strip_tags($this->category));
+            
+
+            
+
+            $statement->bindValue(':category', $this->category);
+           
+            //$statement->execute();
+            if($statement->execute()){
+                return true;
+            }
+            echo json_encode($statement->error);
+            return false;
+    }
+
+    public function update(){
+       
+        $query = ' UPDATE categories
+                       
+                     SET
+                        category = :category
+                        WHERE id = :id
+                        
+                              
+                        
+                                                 ';
+            $statement = $this->conn->prepare($query);
+            $this->category=htmlspecialchars(strip_tags($this->category));
+            $this->id=htmlspecialchars(strip_tags($this->id));
+            
+
+            
+
+            $statement->bindValue(':category', $this->category);
+            $statement->bindValue(':id', $this->id);
+           
+            //$statement->execute();
+            if($statement->execute()){
+                return true;
+            }
+            echo json_encode($statement->error);
+            return false;
+    }
 }
 
 

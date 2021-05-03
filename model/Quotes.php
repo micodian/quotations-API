@@ -118,8 +118,8 @@ class Quotes {
                         
                                                  ';
             $statement = $this->conn->prepare($query);
-            $statement->bindValue(':authorid', $this->authorId);
-            $statement->bindValue(':categoryid', $this->categoryId);
+            $statement->bindValue(':authorId', $this->authorId);
+            $statement->bindValue(':categoryId', $this->categoryId);
             $statement->execute();
            
             return $statement;
@@ -181,6 +181,22 @@ class Quotes {
             }
             echo json_encode($statement->error);
             return false;
+    }
+
+    public function delete(){
+        $query = 'DELETE FROM quotes
+                        WHERE id =:id';
+        $statement = $this->conn->prepare($query); 
+        
+        $this->id=htmlspecialchars(strip_tags($this->id));  
+        
+        $statement->bindValue(':id', $this->id);
+
+        if($statement->execute()){
+            return true;
+        }
+        echo json_encode($statement->error);
+        return false;
     }
 }
 

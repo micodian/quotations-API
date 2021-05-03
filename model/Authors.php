@@ -91,6 +91,22 @@ class Authors {
             echo json_encode($statement->error);
             return false;
     }
+
+    public function delete(){
+        $query = 'DELETE FROM authors
+                        WHERE id =:id';
+        $statement = $this->conn->prepare($query); 
+        
+        $this->id=htmlspecialchars(strip_tags($this->id));  
+        
+        $statement->bindValue(':id', $this->id);
+
+        if($statement->execute()){
+            return true;
+        }
+        echo json_encode($statement->error);
+        return false;
+    }
 }
 
 

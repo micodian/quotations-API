@@ -11,6 +11,7 @@
     <title>Quotes</title>
 </head>
 <body class="container py-4">
+    <h1>Quotes</h1>
     <!-- action form  -->
     <form action="." method="get">
         <div class="form_group_container d-flex row justify-content-center">

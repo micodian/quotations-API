@@ -9,7 +9,7 @@ include_once '../../model/Quotes.php';
 $limit =filter_input(INPUT_GET, 'limit',FILTER_VALIDATE_INT);
 $categoryId = filter_input(INPUT_GET, 'categoryId',FILTER_VALIDATE_INT);
 $authorId =filter_input(INPUT_GET, 'authorId',FILTER_VALIDATE_INT);
-
+$random = filter_input(INPUT_GET, 'random', FILTER_VALIDATE_BOOLEAN);
 
 $database = new Database();
 $db = $database->connect();
@@ -38,7 +38,7 @@ $num = $result->rowCount();
 
 if($num > 0){
     $quote_arr = array();
-    $quote_arr['data'] = array();
+    //$quote_arr['data'] = array();
 
     while($row = $result->fetch(PDO::FETCH_ASSOC)){
         extract($row);
@@ -47,15 +47,21 @@ if($num > 0){
             'id' => $id,
             'quote' => $quote,
             'author' => $author,
-            'category' => $category,
-            'categoryId' => $categoryId,
-            'authorId' => $authorId
+            'category' => $category
+            //'categoryId' => $categoryId,
+            //'authorId' => $authorId
         );
 
-        array_push($quote_arr['data'], $quote_item);
+        array_push($quote_arr, $quote_item);
 
     }
-    echo json_encode($quote_arr);
+    if($random){
+        $random_quote = $quote_arr[random_int(0,count($quote_arr))];
+        echo json_encode($random_quote);
+    }else{
+        echo json_encode($quote_arr);
+    }
+    //echo json_encode($quote_arr);
 }else{
     echo json_encode(
         array('message' => 'no quotes found')

@@ -2,8 +2,8 @@
 
 ## All Requests provide a JSON data response
 
-GET Request:                               |                Response (fields):    
--------------------------------------- | ----------------------------------       
+GET Request:                            |                Response (fields):    
+--------------------------------------  | ----------------------------------       
 /api/quotes/                            | All quotes are returned (id,  quote, author, category)
 /api/quotes/read_single.php?id=4        | The specific quote
 /api/quotes/?authorId=10                | All quotes from authorId=10
@@ -17,7 +17,7 @@ GET Request:                               |                Response (fields):
 
 
 
-POST Requests:                                           Response:
+POST Requests:                            |               Response:
 ----------------------------------------  | -----------------------------------------
 /api/quotes/create.php                    |      { message: ‘Quote Created’ }
 /api/authors/create.php                   |    { message: ‘Author Created’ }
@@ -29,8 +29,9 @@ To create a quote, the POST submission MUST contain the quote, authorId, and cat
 To create an author, the POST submission MUST contain the author.
 To create a category, the POST submission MUST contain the category.
 
+
  
- PUT Requests:                                           Response:
+ PUT Requests:                           |                Response:
 ---------------------------------------- | -----------------------------------------
 /api/quotes/update.php                   |      { message: ‘Quote Updated’ }
 /api/authors/update.php                  |       { message: ‘Author Updated’ }
@@ -41,7 +42,8 @@ To update a quote, the PUT submission MUST contain the id, quote, authorId, and 
 To create an author, the PUT submission MUST contain the id and author.
 To create a category, the PUT submission MUST contain the id and category.
 
-DELETE Requests:                                           Response:
+
+DELETE Requests:                         |                  Response:
 ---------------------------------------- | -----------------------------------------
 /api/quotes/delete.php                   |      { message: ‘Quote Deleted’ }
 /api/authors/delete.php                  |      { message: ‘Author Deleted’ }
@@ -49,3 +51,11 @@ DELETE Requests:                                           Response:
 
 ## Note For DELETE:
 All delete requests require the id to be submitted.
+
+
+Allow a **“random=true”** parameter to be sent via GET request so the response received does not always contain the same quote. The response should contain a random quote that still adheres to the other specified parameters. For example, this will allow users of the API to retrieve a single random quote, a single random quote from Budha, or a single random quote about Motivation.
+
+
+Test your requests and responses with Postman: https://www.postman.com/downloads/
+
+
